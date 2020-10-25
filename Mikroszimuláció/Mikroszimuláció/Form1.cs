@@ -22,7 +22,9 @@ namespace Mikroszimuláció
             List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
             List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
 
-            
+            Population = GetPopulation(@"C:\Users\dobos\source\repos\VersionControl\Mikroszimuláció\Mikroszimuláció\nép.csv");
+            BirthProbabilities = GetBirthProbabilities(@"C:\Users\dobos\source\repos\VersionControl\Mikroszimuláció\Mikroszimuláció\születés.csv");
+            DeathProbabilities = GetDeathProbabilities(@"C:\Users\dobos\source\repos\VersionControl\Mikroszimuláció\Mikroszimuláció\halál.csv");
         }
 
         
