@@ -20,20 +20,26 @@ namespace Evolúciós_algoritmus
         int populationSize = 100;
         int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
-        int generation = 1;
+        int generation = 10;
         public Form1()
         {
             InitializeComponent();
             ga = gc.ActivateDisplay();
             this.Controls.Add(ga);
+            var playerList = from p in gc.GetCurrentPlayers()
+                             orderby p.GetFitness() descending
+                             select p;
+            var topPerformers = playerList.Take(populationSize / 2).ToList();
 
             gc.GameOver += Gc_GameOver;
+
             for (int i = 0; i < populationSize; i++)
             {
                 gc.AddPlayer(nbrOfSteps);
             }
             gc.Start();
 
+            
             //gc.AddPlayer();
             //gc.Start(true);
         }
@@ -44,6 +50,7 @@ namespace Evolúciós_algoritmus
             label1.Text = string.Format(
                 "{0}. generáció",
                 generation);
+            
         }
     }
 }
