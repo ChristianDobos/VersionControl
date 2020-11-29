@@ -20,7 +20,7 @@ namespace Evolúciós_algoritmus
         int populationSize = 100;
         int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
-        int generation = 10;
+        int generation = 1;
         public Form1()
         {
             InitializeComponent();
@@ -35,6 +35,7 @@ namespace Evolúciós_algoritmus
             {
                 gc.AddPlayer(nbrOfSteps);
             }
+            Brain winnerBrain = null;
             gc.Start();
 
             
@@ -44,6 +45,7 @@ namespace Evolúciós_algoritmus
 
         private void Gc_GameOver(object sender)
         {
+            Brain winnerBrain = null;
             generation++;
             label1.Text = string.Format(
                 "{0}. generáció",
@@ -67,6 +69,17 @@ namespace Evolúciós_algoritmus
                 else
                     gc.AddPlayer(b.Mutate());
             }
+
+            var winners = from p in topPerformers
+                          where p.IsWinner
+                          select p;
+            if (winners.Count() > 0)
+            {
+                winnerBrain = winners.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver;
+                return;
+            }
+            gc.Start();
         }
     }
 }
